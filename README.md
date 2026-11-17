@@ -10,6 +10,7 @@ A FastAPI backend for student registration. The user uploads a resume, the syste
 - PyJWT for access tokens
 - pdfplumber and python-docx for resume parsing
 - pyotp for browser TOTP
+- Alembic for database migrations
 
 ## Features
 - Upload a PDF or DOCX resume and get Name, Email, Phone, Skills, Experience as JSON
@@ -31,6 +32,8 @@ resume_pipeline/
 │   ├── schemas/     (auth, profile)
 │   ├── services/    (parser, security, otp)
 │   └── routers/     (resume, auth, profile)
+├── alembic/         (migration scripts)
+├── alembic.ini
 ├── requirements.txt
 └── README.md
 ```
@@ -58,11 +61,16 @@ resume_pipeline/
    ```
    If SMTP is empty, OTPs are printed in the terminal (mock mode).
 
+6. Create the database tables using Alembic:
+   ```
+   alembic upgrade head
+   ```
+
 ## Run
 ```
 uvicorn app.main:app --reload
 ```
-Open http://127.0.0.1:8000/docs to test the APIs. Tables are created automatically on startup.
+Open http://127.0.0.1:8000/docs to test the APIs.
 
 ## API Endpoints
 | Method | Endpoint | Purpose |
